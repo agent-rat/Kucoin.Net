@@ -37,7 +37,8 @@ namespace Kucoin.Net
             {
                 ["KC-API-KEY"] = Credentials.Key.GetString(),
                 ["KC-API-TIMESTAMP"] = Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture),
-                ["KC-API-PASSPHRASE"] = ((KucoinApiCredentials) Credentials).PassPhrase.GetString()
+                ["KC-API-KEY-VERSION"] = "2",
+                ["KC-API-PASSPHRASE"] = Convert.ToBase64String(encryptor.ComputeHash(Encoding.UTF8.GetBytes(((KucoinApiCredentials) Credentials).PassPhrase.GetString())))
             };
 
             var jsonContent = string.Empty;
